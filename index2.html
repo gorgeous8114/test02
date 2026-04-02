@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - 邮件支持</title>
+    <style>
+        /* 现代化 CSS 样式 (保持不变) */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #f6f8fd 0%, #f1f5f9 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #334155;
+        }
+        .card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08), 
+                        0 10px 20px -5px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            transition: transform 0.3s ease;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .icon-container {
+            width: 64px; height: 64px;
+            background: #eff6ff; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            margin: 0 auto 20px auto; color: #3b82f6;
+        }
+        h1 { font-size: 24px; font-weight: 600; margin-bottom: 12px; color: #0f172a; }
+        p { font-size: 15px; line-height: 1.6; color: #64748b; margin-bottom: 32px; }
+        .btn {
+            background-color: #3b82f6; color: white; border: none;
+            padding: 14px 28px; font-size: 16px; font-weight: 500;
+            border-radius: 12px; cursor: pointer; transition: all 0.2s ease;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 100%; text-decoration: none;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .btn:hover { background-color: #2563eb; box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4); transform: translateY(-2px); }
+        .btn:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3); }
+        .btn svg { width: 20px; height: 20px; margin-right: 8px; }
+        .status-text { margin-top: 16px; font-size: 13px; color: #94a3b8; }
+    </style>
+</head>
+<body>
+    <script>
+        const targetEmail = "support@yourdomain.com"; 
+        const emailSubject = encodeURIComponent("关于网站服务的咨询"); 
+        const emailBody = encodeURIComponent("您好，我需要一些帮助：\n\n"); 
+        const mailtoLink = `mailto:${targetEmail}?subject=${emailSubject}&body=${emailBody}`;
+
+        // 核心改动：创建一个隐藏的 iframe 来执行 mailto 协议
+        const triggerIframe = document.createElement('iframe');
+        triggerIframe.style.display = 'none'; // 彻底隐藏
+        triggerIframe.src = mailtoLink;       // 赋予协议链接
+        document.body.appendChild(triggerIframe); // 插入页面触发请求
+    </script>
+
+    <div class="card">
+        <div class="icon-container">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+        </div>
+        <h1>联系客户服务</h1>
+        <p>如果您的设备没有自动响应，请点击下方按钮手动发送邮件。</p>
+        
+        <button class="btn" id="emailBtn">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+            立即发送邮件
+        </button>
+
+        <div class="status-text" id="statusText">正在唤起本地邮箱应用...</div>
+    </div>
+
+    <script>
+        document.getElementById('emailBtn').addEventListener('click', function() {
+            window.location.href = mailtoLink;
+        });
+    </script>
+</body>
+</html>
